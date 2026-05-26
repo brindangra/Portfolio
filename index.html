@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brinda Angra — Senior Web Developer</title>
+  <meta name="description" content="Portfolio of Brinda Angra, Senior Web Developer at Blue Cross Blue Shield of Michigan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #0D0D0D;
+      --surface:  #141414;
+      --surface2: #1A1A1A;
+      --surface3: #222222;
+      --border:   #282828;
+      --text:     #E8E2DB;
+      --mid:      #A89C94;
+      --muted:    #5E5550;
+      --accent:   #E8856A;
+      --accent-dk:#C5614A;
+      --glow:     rgba(232,133,106,0.12);
+      --gold:     #C4923A;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; overflow-x:hidden; }
+
+    /* ─── LAYOUT ─── */
+    .layout { display:flex; min-height:100vh; }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar { width:268px; min-width:268px; background:var(--surface); border-right:1px solid var(--border); position:fixed; top:0; left:0; height:100vh; overflow:hidden; display:flex; flex-direction:column; padding:2rem 1.5rem; z-index:50; }
+    .sidebar-logo { font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:600; color:var(--accent); margin-bottom:2.2rem; }
+    .profile-avatar { width:84px; height:84px; background:linear-gradient(135deg,var(--accent-dk) 0%,var(--gold) 100%); border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:2.4rem; margin-bottom:1.1rem; }
+    .profile-name  { font-size:1.05rem; font-weight:700; color:var(--text); margin-bottom:0.15rem; }
+    .profile-title { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--accent); margin-bottom:1.6rem; }
+    .profile-meta  { display:flex; flex-direction:column; gap:0.55rem; margin-bottom:1.6rem; }
+    .meta-row      { display:flex; align-items:center; gap:0.55rem; font-size:0.8rem; color:var(--mid); }
+    .meta-row a    { color:var(--mid); text-decoration:none; transition:color .2s; }
+    .meta-row a:hover { color:var(--accent); }
+    .meta-icon     { width:15px; text-align:center; font-size:0.85rem; flex-shrink:0; }
+    .divider { height:1px; background:var(--border); margin:1.1rem 0; }
+    .sidebar-label { font-family:'JetBrains Mono',monospace; font-size:0.65rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:0.7rem; }
+    .stack-tags    { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.4rem; }
+    .stack-tag     { background:var(--surface2); border:1px solid var(--border); color:var(--mid); padding:0.22rem 0.6rem; border-radius:5px; font-family:'JetBrains Mono',monospace; font-size:0.7rem; }
+
+    /* ─── MAIN ─── */
+    .main { margin-left:268px; flex:1; min-width:0; }
+
+    /* ─── TOP NAV ─── */
+    .top-nav { position:sticky; top:0; z-index:40; background:rgba(13,13,13,0.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); padding:0.9rem 3rem; }
+    .top-nav-links { display:flex; gap:2rem; list-style:none; flex-wrap:wrap; }
+    .top-nav-links a { text-decoration:none; color:var(--muted); font-size:0.87rem; font-weight:500; transition:color .2s; }
+    .top-nav-links a:hover { color:var(--accent); }
+
+    /* ─── HERO ─── */
+    #hero { padding:5rem 3rem 4rem; border-bottom:1px solid var(--border); }
+    .hero-greeting { font-family:'JetBrains Mono',monospace; font-size:0.95rem; color:var(--accent); margin-bottom:0.7rem; }
+    h1 { font-size:clamp(3rem,5vw,4.6rem); font-weight:700; line-height:1.05; color:var(--text); }
+    .hero-role { font-size:clamp(1.6rem,3vw,2.4rem); font-weight:700; color:var(--muted); margin:0.3rem 0 1.5rem; }
+    .hero-role span { color:var(--accent); }
+    .hero-desc { font-size:1.02rem; color:var(--mid); max-width:560px; line-height:1.78; margin-bottom:2.2rem; }
+    .hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn { padding:0.78rem 2rem; border-radius:8px; font-size:0.88rem; font-weight:600; cursor:pointer; transition:all .2s; text-decoration:none; border:none; font-family:'Plus Jakarta Sans',sans-serif; display:inline-flex; align-items:center; gap:0.4rem; }
+    .btn-solid { background:var(--accent); color:white; }
+    .btn-solid:hover { background:var(--accent-dk); }
+    .btn-ghost { background:transparent; border:1px solid var(--border); color:var(--mid); }
+    .btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+
+    /* ─── STATS ─── */
+    .stats-bar { display:flex; border-bottom:1px solid var(--border); }
+    .stat-cell { flex:1; padding:2rem 2.5rem; border-right:1px solid var(--border); text-align:center; }
+    .stat-cell:last-child { border-right:none; }
+    .stat-num { font-family:'JetBrains Mono',monospace; font-size:2rem; font-weight:600; color:var(--accent); display:block; }
+    .stat-lbl { font-size:0.78rem; color:var(--muted); margin-top:0.2rem; }
+
+    /* ─── SECTIONS ─── */
+    .section { padding:4rem 3rem; border-bottom:1px solid var(--border); }
+    .section-head { display:flex; align-items:center; gap:1rem; margin-bottom:2.5rem; }
+    .section-tag  { font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); background:var(--glow); padding:0.28rem 0.75rem; border-radius:4px; }
+    h2 { font-size:1.65rem; font-weight:700; color:var(--text); }
+
+    /* ─── ABOUT ─── */
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+    .about-text p { color:var(--mid); font-size:0.96rem; line-height:1.82; margin-bottom:1rem; }
+    .about-img { background:var(--surface2); border:1px solid var(--border); border-radius:16px; height:300px; display:flex; align-items:center; justify-content:center; font-size:5rem; }
+
+    /* ─── SKILLS ─── */
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+    .skill-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.6rem; transition:border-color .2s; }
+    .skill-card:hover { border-color:var(--accent); }
+    .skill-card h3 { font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:600; color:var(--accent); margin-bottom:1.3rem; text-transform:uppercase; letter-spacing:0.08em; }
+    .skill-rows { display:flex; flex-direction:column; gap:0.85rem; }
+    .skill-row  { display:flex; align-items:center; gap:0.75rem; }
+    .skill-name { font-size:0.86rem; color:var(--mid); width:160px; flex-shrink:0; }
+    .skill-bar  { flex:1; height:4px; background:var(--surface3); border-radius:2px; overflow:hidden; }
+    .skill-fill { height:100%; background:linear-gradient(90deg,var(--accent-dk),var(--accent)); border-radius:2px; width:0; transition:width 1.2s cubic-bezier(.22,1,.36,1); }
+
+    /* ─── TIMELINE ─── */
+    .timeline { position:relative; padding-left:2rem; }
+    .timeline::before { content:''; position:absolute; left:0; top:8px; bottom:0; width:1px; background:var(--border); }
+    .t-item { position:relative; padding-bottom:2.5rem; }
+    .t-item:last-child { padding-bottom:0; }
+    .t-item::before { content:''; position:absolute; left:-2.4rem; top:6px; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px var(--bg),0 0 0 4px var(--accent); }
+    .t-date    { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--accent); font-weight:600; letter-spacing:.08em; margin-bottom:0.3rem; }
+    .t-title   { font-size:1rem; font-weight:700; color:var(--text); }
+    .t-company { font-size:0.84rem; color:var(--muted); margin-bottom:0.5rem; font-weight:500; }
+    .t-desc    { font-size:0.9rem; color:var(--mid); line-height:1.7; }
+
+    /* ─── EDUCATION ─── */
+    .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+    .edu-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem; transition:border-color .2s; }
+    .edu-card:hover { border-color:var(--accent); }
+    .edu-icon   { font-size:1.5rem; margin-bottom:0.7rem; }
+    .edu-degree { font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.2rem; }
+    .edu-school { font-size:0.85rem; color:var(--accent); margin-bottom:0.2rem; font-weight:600; }
+    .edu-years  { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--muted); }
+
+    /* ─── PROJECTS ─── */
+    .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
+    .project-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.8rem; transition:all .25s; }
+    .project-card:hover { border-color:var(--accent); transform:translateY(-3px); box-shadow:0 12px 40px rgba(232,133,106,.07); }
+    .project-num  { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--muted); margin-bottom:0.8rem; }
+    .project-card h3 { font-size:1rem; font-weight:700; color:var(--text); margin-bottom:0.5rem; }
+    .project-card p  { font-size:0.87rem; color:var(--mid); line-height:1.62; margin-bottom:1rem; }
+    .project-link { display:inline-flex; align-items:center; gap:0.3rem; font-size:0.82rem; color:var(--accent); text-decoration:none; font-weight:600; margin-bottom:1rem; transition:color .2s; }
+    .project-link:hover { color:var(--text); }
+    .project-stack { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .p-tag { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--accent); background:var(--glow); padding:0.2rem 0.6rem; border-radius:4px; }
+
+    /* ─── CERTS ─── */
+    .certs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.2rem; }
+    .cert-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.4rem; display:flex; gap:1rem; align-items:flex-start; transition:border-color .2s; }
+    .cert-card:hover { border-color:var(--gold); }
+    .cert-icon   { font-size:1.8rem; flex-shrink:0; margin-top:0.1rem; }
+    .cert-name   { font-size:0.9rem; font-weight:700; color:var(--text); margin-bottom:0.2rem; }
+    .cert-issuer { font-size:0.8rem; color:var(--muted); }
+    .cert-date   { font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--gold); margin-top:0.35rem; }
+    .cert-link   { display:inline-flex; align-items:center; gap:0.3rem; font-size:0.75rem; color:var(--accent); text-decoration:none; margin-top:0.4rem; font-weight:600; transition:color .2s; }
+    .cert-link:hover { color:var(--text); }
+
+    /* ─── PUBLICATION ─── */
+    .pub-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.6rem; transition:border-color .2s; }
+    .pub-card:hover { border-color:var(--accent); }
+    .pub-card h3 { font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.4rem; line-height:1.4; }
+    .pub-venue   { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--accent); margin-bottom:0.6rem; }
+    .pub-card p  { font-size:0.87rem; color:var(--mid); line-height:1.65; }
+
+    /* ─── CONTACT ─── */
+    .contact-info p { color:var(--mid); font-size:0.95rem; line-height:1.75; margin-bottom:1.5rem; max-width:560px; }
+    .contact-links  { display:flex; flex-direction:column; gap:0.8rem; }
+    .contact-link   { display:flex; align-items:center; gap:0.75rem; text-decoration:none; color:var(--mid); font-size:0.9rem; font-weight:500; transition:color .2s; }
+    .contact-link:hover { color:var(--accent); }
+    .c-icon { width:36px; height:36px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1rem; }
+
+    /* ─── FOOTER ─── */
+    footer { padding:1.8rem 3rem; display:flex; align-items:center; justify-content:center; border-top:1px solid var(--border); }
+    footer p { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--muted); }
+    footer span { color:var(--accent); }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-in { opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:900px){
+      .sidebar{display:none} .main{margin-left:0}
+      .top-nav{padding:1rem 1.5rem} #hero,.section{padding:3rem 1.5rem}
+      .about-grid,.edu-grid{grid-template-columns:1fr}
+      .stats-bar{flex-wrap:wrap} .stat-cell{flex:1 1 50%}
+      h1{font-size:2.6rem}
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">&lt;BA/&gt;</div>
+    <div class="profile-avatar">👩‍💻</div>
+    <div class="profile-name">Brinda Angra</div>
+    <div class="profile-title">// senior web developer</div>
+    <div class="profile-meta">
+      <div class="meta-row"><span class="meta-icon">✉</span><a href="mailto:brindangra@gmail.com">brindangra@gmail.com</a></div>
+      <div class="meta-row"><span class="meta-icon">💼</span><a href="https://www.linkedin.com/in/brinda-angra-303a3628/" target="_blank" rel="noopener">LinkedIn</a></div>
+      <div class="meta-row"><span class="meta-icon">🐙</span><a href="https://github.com/brindangra" target="_blank" rel="noopener">GitHub</a></div>
+      <div class="meta-row"><span class="meta-icon">📍</span><span>Oregon, US</span></div>
+    </div>
+    <div class="divider"></div>
+    <div class="sidebar-label">Stack</div>
+    <div class="stack-tags">
+      <span class="stack-tag">Angular</span>
+      <span class="stack-tag">React</span>
+      <span class="stack-tag">TypeScript</span>
+      <span class="stack-tag">Node.js</span>
+      <span class="stack-tag">AEM</span>
+      <span class="stack-tag">Python</span>
+      <span class="stack-tag">SQL</span>
+      <span class="stack-tag">AWS</span>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+    <nav class="top-nav">
+      <ul class="top-nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-greeting">Hey there 👋</div>
+      <h1>I'm Brinda</h1>
+      <div class="hero-role"><span>Senior Web</span> Developer</div>
+      <p class="hero-desc">
+        I build complex, scalable web solutions with Angular, React, and Node.js — currently at Blue Cross Blue Shield of Michigan.
+        Passionate about clean code, AI-powered tools, and meaningful digital experiences.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-solid">View My Work</a>
+        <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat-cell"><span class="stat-num">7+</span><div class="stat-lbl">Years Experience</div></div>
+      <div class="stat-cell"><span class="stat-num">5</span><div class="stat-lbl">Companies</div></div>
+      <div class="stat-cell"><span class="stat-num">10+</span><div class="stat-lbl">Certifications</div></div>
+      <div class="stat-cell"><span class="stat-num">2</span><div class="stat-lbl">Open Source Projects</div></div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section-head"><div class="section-tag">About</div><h2>Hello!</h2></div>
+      <div class="about-grid fade-in">
+        <div class="about-text">
+          <p>My name is Brinda and I specialise in building complex web solutions using JavaScript, Angular, React, TypeScript, and Node.js. I currently work as a Senior Web Developer at Blue Cross Blue Shield of Michigan.</p>
+          <p>I have a strong background in Content Management Systems (AEM, Sitecore, WordPress), web analytics, and accessibility. More recently, I've been integrating AI into my development workflow — from prompt engineering to building AI-powered tools.</p>
+          <p>I hold an M.S. in Information Technology from Towson University and have been published in an assistive technology research journal. When I'm not coding, I love exploring new tech and contributing to open source. ☕</p>
+        </div>
+        <div class="about-img">👩‍💻</div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <div class="section-head"><div class="section-tag">Skills</div><h2>My Toolkit</h2></div>
+      <div class="skills-grid">
+        <div class="skill-card fade-in">
+          <h3>// frontend</h3>
+          <div class="skill-rows">
+            <div class="skill-row"><span class="skill-name">Angular</span><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+            <div class="skill-row"><span class="skill-name">React</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+            <div class="skill-row"><span class="skill-name">JavaScript / TS</span><div class="skill-bar"><div class="skill-fill" data-width="93"></div></div></div>
+            <div class="skill-row"><span class="skill-name">HTML / CSS</span><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+          </div>
+        </div>
+        <div class="skill-card fade-in" style="transition-delay:.1s">
+          <h3>// backend &amp; data</h3>
+          <div class="skill-rows">
+            <div class="skill-row"><span class="skill-name">Node.js</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+            <div class="skill-row"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" data-width="75"></div></div></div>
+            <div class="skill-row"><span class="skill-name">SQL / Databases</span><div class="skill-bar"><div class="skill-fill" data-width="82"></div></div></div>
+            <div class="skill-row"><span class="skill-name">REST APIs</span><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+          </div>
+        </div>
+        <div class="skill-card fade-in" style="transition-delay:.2s">
+          <h3>// platforms &amp; tools</h3>
+          <div class="skill-rows">
+            <div class="skill-row"><span class="skill-name">AEM (Adobe)</span><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+            <div class="skill-row"><span class="skill-name">Sitecore CMS</span><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+            <div class="skill-row"><span class="skill-name">Google Analytics</span><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+            <div class="skill-row"><span class="skill-name">AWS / Git / CI/CD</span><div class="skill-bar"><div class="skill-fill" data-width="78"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section">
+      <div class="section-head"><div class="section-tag">Experience</div><h2>My Journey</h2></div>
+      <div class="timeline">
+
+        <div class="t-item fade-in">
+          <div class="t-date">Apr 2025 – Present</div>
+          <div class="t-title">Senior Web Developer</div>
+          <div class="t-company">Blue Cross Blue Shield of Michigan · Full-time · Michigan, US</div>
+          <div class="t-desc">Developing, testing and implementing complex web solutions using JavaScript, Angular, React, jQuery, Node.js and TypeScript. Managing AEM Content Management System with monthly production deployments. Creating prototypes with the design team and leveraging AI tools for development efficiency.</div>
+        </div>
+
+        <div class="t-item fade-in" style="transition-delay:.08s">
+          <div class="t-date">May 2024 – Jan 2025</div>
+          <div class="t-title">System Analyst</div>
+          <div class="t-company">Lithia &amp; Driveway · Full-time · Medford, Oregon · Remote</div>
+          <div class="t-desc">Managed the company's internal DeFi portal. Designed and developed front-end interfaces, performed data analytics and created custom reports using Python and SQL to support business decision-making.</div>
+        </div>
+
+        <div class="t-item fade-in" style="transition-delay:.16s">
+          <div class="t-date">Feb 2022 – Jul 2023</div>
+          <div class="t-title">Senior Web Developer</div>
+          <div class="t-company">Blue Cross Blue Shield of Michigan · Full-time · Michigan, US · On-site</div>
+          <div class="t-desc">Developed complex web solutions using JavaScript, Angular, React, jQuery, Node.js and TypeScript. Managed AEM CMS with monthly production deployments and created design prototypes in collaboration with the design team.</div>
+        </div>
+
+        <div class="t-item fade-in" style="transition-delay:.24s">
+          <div class="t-date">Jun 2019 – Sep 2021</div>
+          <div class="t-title">Web Developer</div>
+          <div class="t-company">Community College of Baltimore County · Full-time</div>
+          <div class="t-desc">Built front-end solutions using HTML5, CSS3, React, jQuery, NodeJS and Bootstrap. Worked with REST APIs, Web API, and XML. Managed Sitecore and WordPress CMS platforms. Drove Google Analytics, Tag Manager, accessibility compliance, and SEO.</div>
+        </div>
+
+        <div class="t-item fade-in" style="transition-delay:.32s">
+          <div class="t-date">Apr 2018 – May 2019</div>
+          <div class="t-title">Programming Analyst &amp; Assistant Registrar</div>
+          <div class="t-company">Notre Dame of Maryland University · Full-time</div>
+          <div class="t-desc">Developed and managed the NDMU and Ellucian websites. Delivered SEO and analytics improvements, SharePoint administration, automated document flow processes, and mobile-friendly design using HTML, JavaScript, CSS and JSON.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="section-head"><div class="section-tag">Works</div><h2>I had the pleasure of building these projects</h2></div>
+      <div class="projects-grid">
+
+        <div class="project-card fade-in">
+          <div class="project-num">01.</div>
+          <h3>AI Job Search Agent</h3>
+          <p>AI-powered job search tool that matches your resume to real job listings and generates a compatibility score. Includes a Dream Job Gap Analysis — paste any job posting to get your exact match %, skill gaps, and a step-by-step plan to close them.</p>
+          <a href="https://github.com/brindangra/ai-job-agent" target="_blank" rel="noopener" class="project-link">↗ github.com/brindangra/ai-job-agent</a>
+          <div class="project-stack">
+            <span class="p-tag">Claude AI</span><span class="p-tag">Node.js</span><span class="p-tag">Express</span><span class="p-tag">JSearch API</span><span class="p-tag">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-in" style="transition-delay:.1s">
+          <div class="project-num">02.</div>
+          <h3>Jira Sprint Tasks</h3>
+          <p>A productivity tool that consolidates all your Jira sprint tasks into a single, clean view — so you can add end-of-day comments across multiple tickets without switching between pages. Solves the daily developer scramble.</p>
+          <a href="https://brindangra.github.io/JiraUpdates/" target="_blank" rel="noopener" class="project-link">↗ brindangra.github.io/JiraUpdates</a>
+          <div class="project-stack">
+            <span class="p-tag">JavaScript</span><span class="p-tag">Jira API</span><span class="p-tag">HTML/CSS</span>
+          </div>
+        </div>
+
+        <div class="project-card fade-in" style="transition-delay:.2s">
+          <div class="project-num">03.</div>
+          <h3>YCAT Assistive Technology</h3>
+          <p>Research project and design prototype for Young Children's Assistive Technology — a novel communication device with environmental sensors and home automation for children with neurodegenerative diseases. Published at RESNA.</p>
+          <a href="https://www.resna.org/sites/default/files/conference/2018/cac/Radlow.html" target="_blank" rel="noopener" class="project-link">↗ View Publication</a>
+          <div class="project-stack">
+            <span class="p-tag">Research</span><span class="p-tag">Prototype Design</span><span class="p-tag">RESNA 2018</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section">
+      <div class="section-head"><div class="section-tag">Certifications</div><h2>Credentials</h2></div>
+      <div class="certs-grid">
+
+        <div class="cert-card fade-in">
+          <div class="cert-icon">🤖</div>
+          <div>
+            <div class="cert-name">Supervised Machine Learning: Regression &amp; Classification</div>
+            <div class="cert-issuer">DeepLearning.AI</div>
+            <div class="cert-date">Issued May 2026</div>
+            <a href="https://learn.deeplearning.ai/certificates/9295b935-ff11-477f-9d98-b8139d056dc4" target="_blank" rel="noopener" class="cert-link">↗ View Credential</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in" style="transition-delay:.08s">
+          <div class="cert-icon">🦙</div>
+          <div>
+            <div class="cert-name">JavaScript RAG Web Apps with LlamaIndex</div>
+            <div class="cert-issuer">DeepLearning.AI</div>
+            <div class="cert-date">Issued Apr 2026</div>
+            <a href="https://learn.deeplearning.ai/accomplishments/25631202-f6ed-4b3e-819d-261fc8076468" target="_blank" rel="noopener" class="cert-link">↗ View Credential</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in" style="transition-delay:.16s">
+          <div class="cert-icon">🎓</div>
+          <div>
+            <div class="cert-name">Sitecore Experience Solution 9 Developer Certification</div>
+            <div class="cert-issuer">Sitecore</div>
+            <div class="cert-date">View on LinkedIn</div>
+            <a href="https://www.linkedin.com/in/brinda-angra-303a3628/" target="_blank" rel="noopener" class="cert-link">↗ LinkedIn Profile</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in" style="transition-delay:.24s">
+          <div class="cert-icon">🐍</div>
+          <div>
+            <div class="cert-name">LangChain for LLM Application Development</div>
+            <div class="cert-issuer">DeepLearning.AI</div>
+            <div class="cert-date">View on LinkedIn</div>
+            <a href="https://www.linkedin.com/in/brinda-angra-303a3628/details/certifications/" target="_blank" rel="noopener" class="cert-link">↗ View All 10 Certs</a>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in" style="transition-delay:.32s">
+          <div class="cert-icon">🐍</div>
+          <div>
+            <div class="cert-name">Python for Everybody</div>
+            <div class="cert-issuer">Coursera / University of Michigan</div>
+            <div class="cert-date">View on LinkedIn</div>
+          </div>
+        </div>
+
+        <div class="cert-card fade-in" style="transition-delay:.4s">
+          <div class="cert-icon">☁️</div>
+          <div>
+            <div class="cert-name">Amazon Web Services (AWS)</div>
+            <div class="cert-issuer">Amazon Web Services</div>
+            <div class="cert-date">View on LinkedIn</div>
+            <a href="https://www.linkedin.com/in/brinda-angra-303a3628/details/certifications/" target="_blank" rel="noopener" class="cert-link">↗ + 4 more certifications</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="section">
+      <div class="section-head"><div class="section-tag">Education</div><h2>Academic Background</h2></div>
+      <div class="edu-grid fade-in">
+        <div class="edu-card">
+          <div class="edu-icon">🎓</div>
+          <div class="edu-degree">Master of Science — Information Technology</div>
+          <div class="edu-school">Towson University</div>
+          <div class="edu-years">2016 – 2017</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">🎓</div>
+          <div class="edu-degree">Engineer's Degree — Information Technology</div>
+          <div class="edu-school">Panjab University</div>
+          <div class="edu-years">2011 – 2015</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="section-head"><div class="section-tag">Contact</div><h2>Let's work together</h2></div>
+      <div class="contact-info fade-in">
+        <p>I'm open to new opportunities and interesting projects. Send me a message and let's talk.</p>
+        <div class="contact-links">
+          <a href="mailto:brindangra@gmail.com" class="contact-link"><div class="c-icon">✉️</div>brindangra@gmail.com</a>
+          <a href="https://www.linkedin.com/in/brinda-angra-303a3628/" target="_blank" rel="noopener" class="contact-link"><div class="c-icon">💼</div>linkedin.com/in/brinda-angra-303a3628</a>
+          <a href="https://github.com/brindangra" target="_blank" rel="noopener" class="contact-link"><div class="c-icon">🐙</div>github.com/brindangra</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 <span>Brinda Angra</span>. All rights reserved.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.skill-fill').forEach(b => { b.style.width = b.dataset.width + '%'; });
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in, .skill-card').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
